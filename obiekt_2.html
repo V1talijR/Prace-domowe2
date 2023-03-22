@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Przycisk konfigurowany panelu</title>
+    </head>
+
+    <body>
+        <!-- Panel konfiguracyjny -->
+<form>
+	<label for="label-input">Tekst na przycisku:</label>
+	<input type="text" id="label-input" name="label-input"><br>
+
+	<label for="background-input">Kolor tła przycisku:</label>
+	<input type="color" id="background-input" name="background-input"><br>
+
+	<label for="color-input">Kolor tekstu przycisku:</label>
+	<input type="color" id="color-input" name="color-input"><br>
+
+	<label for="font-size-input">Rozmiar tekstu:</label>
+	<input type="number" id="font-size-input" name="font-size-input"><br>
+
+	<label for="border-radius-input">Zaokrąglenie narożników:</label>
+	<input type="number" id="border-radius-input" name="border-radius-input"><br>
+
+	<button type="button" onclick="applyChanges()">Zastosuj zmiany</button>
+</form>
+
+<!-- Przycisk -->
+<button id="myButton">Przykładowy przycisk</button>
+
+<script>
+	// Obiekt reprezentujący przycisk
+	var myButton = {
+		label: "Przykładowy przycisk",
+		backgroundColor: "#4CAF50",
+		color: "#FFFFFF",
+		fontSize: "16",
+		borderRadius: "5"
+	};
+
+	// Funkcja aplikująca zmiany z panelu konfiguracyjnego
+	function applyChanges() {
+    myButton.label = document.getElementById("label-input").value;
+    myButton.backgroundColor = document.getElementById("background-input").value;
+    myButton.color = document.getElementById("color-input").value;
+    myButton.fontSize = document.getElementById("font-size-input").value;
+    myButton.borderRadius = document.getElementById("border-radius-input").value;
+
+    // Zmiana wyglądu przycisku
+    var buttonElement = document.getElementById("myButton");
+    buttonElement.innerHTML = myButton.label;
+    buttonElement.style.backgroundColor = myButton.backgroundColor;
+    buttonElement.style.color = myButton.color;
+    buttonElement.style.fontSize = myButton.fontSize + "px";
+    buttonElement.style.borderRadius = myButton.borderRadius + "px";
+
+    // Dodanie alertu z informacjami o przycisku
+    buttonElement.addEventListener("click", function() {
+        var infoText = "Tekst na przycisku: " + myButton.label + "\n"
+                     + "Kolor tła przycisku: " + myButton.backgroundColor + "\n"
+                     + "Kolor tekstu przycisku: " + myButton.color + "\n"
+                     + "Rozmiar tekstu: " + myButton.fontSize + "px\n"
+                     + "Zaokrąglenie narożników: " + myButton.borderRadius + "px";
+        alert(infoText);
+    });
+}
+
+	// Inicjalizacja wyglądu przycisku
+	applyChanges();
+</script>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>My Website</title>
+</head>
+<body>
+	<p id='p1'>30 s</p>
+	<p id='p2'>Wpisz wyraz wg. wzoru (masz 30s):</p>
+	<input type='text' id='ipt'>
+	<input type='button' onclick='fun()' id='btn' value='start'>
+</body>
+</html>
+
+<script>
+var score = 0
+var time = 30
+var wyr = ['[0-9]', '[4-7]', '[a-z]', '[c-j]']
+const fun = () => {
+	if(document.getElementById('btn').value == 'start') {
+		document.getElementById('btn').value = 'wyślij'
+		document.getElementById('p2').innerText = wyr[score]
+		var interval = setInterval(() => {
+			time -= 1
+			document.getElementById('p1').innerText = time + ' s'
+			if(time == 0) {
+				clearInterval(interval)
+				document.getElementById('p1').innerHTML = `<h1>Game Over</h1><h1>Score: ${score}</h1><h1>Time: 30</h1>`
+				document.getElementById('p2').style.display = 'none'
+				document.getElementById('ipt').disabled = true
+				document.getElementById('ipt').value = ''
+				document.getElementById('ipt').style.background = 'white'
+				document.getElementById('btn').disabled = true
+			}
+		}, 1000)
+	} else if(document.getElementById('btn').value == 'next') {
+		document.getElementById('ipt').style.background = 'white'
+		document.getElementById('ipt').value = ''
+		document.getElementById('btn').value = 'wyślij'
+		document.getElementById('p2').innerText = wyr[score]
+	} else {
+		if(RegExp(document.getElementById('p2').innerText).test(document.getElementById('ipt').value)) {
+			document.getElementById('ipt').style.background = 'green'
+			score += 1
+			document.getElementById('btn').value = 'next'
+		} else {
+			document.getElementById('ipt').style.background = 'red'
+		}
+	}
+}
+</script>
